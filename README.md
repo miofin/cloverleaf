@@ -1,4 +1,4 @@
-# Galley
+# Cloverleaf
 
 A single-page LaTeX proof desk. Open a `.tex` file, load a list of edits an AI
 suggested, and step through them one at a time: each edit shows what would
