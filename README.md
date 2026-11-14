@@ -1,5 +1,9 @@
 # Cloverleaf
 
+Latex compiler and editor that makes it easier to use AI to edit latex files.
+Provides a convenient environment to step through AI-suggested edits and
+approve or deny them.
+
 A single-page LaTeX proof desk. Open a `.tex` file, load a list of edits an AI
 suggested, and step through them one at a time: each edit shows what would
 change, and nothing is written into your source until you approve it.
