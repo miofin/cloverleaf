@@ -1,0 +1,50 @@
+\documentclass{article}
+\usepackage{tikz}
+\makeatletter\def\@foo#1{x#1}\makeatother
+\newcommand{\be}{\begin{equation}}
+\newcommand{\ee}{\end{equation}}
+\renewcommand{\labelenumi}{(\roman{enumi})}
+\newenvironment{sol}[1][Solution]{\begin{quote}\textbf{#1.} }{\end{quote}}
+\def\R{\mathbb{R}}
+\titleformat{\section}{\large\bfseries}{\thesection}{1em}{}
+\begin{document}
+\tableofcontents
+\section*{Intro} % comment
+Hello ``world'' --- it's 50\% \& more~here. See \ref{nope} and \cref{sec:a,tab:x}. {\bf bold text} and {\large big \it italic}.
+% a comment line
+
+\be x=1 \label{e1} \ee
+See \eqref{e1}. Na\"ive caf\'e \c{c}. \unknowncmd{arg} $a<b$ and $\text{if $x$}$ ok. \footnote{A note with $x$.}
+\section{A}\label{sec:a}
+\begin{enumerate}
+\item one \label{it:1}
+\begin{itemize}
+ \item[--] sub
+ \item sub2
+\end{itemize}
+\item two
+\end{enumerate}
+\begin{sol}[Answer] It is $2$. \end{sol}
+\begin{table}[h]\centering
+\begin{tabular}{|l|c|r|}\hline
+a & b & c \\ \hline
+\multicolumn{2}{c}{wide} & $x & y$ ? \\
+\bottomrule
+\end{tabular}
+\caption{A table}\label{tab:x}
+\end{table}
+\begin{tikzpicture}\draw (0,0)--(1,1);\end{tikzpicture}
+\begin{proof}[Sketch] Trivial. \[ x \] \end{proof}
+\begin{lemma} Auto lemma. \end{lemma}
+\begin{verbatim}
+$raw$ \stuff
+\end{verbatim}
+\begin{center} unclosed {brace \end{center}
+Left \hfill Right
+
+$unclosed math
+
+text \begin{weird} inside \end{weird} \vspace{1cm} \item stray
+\appendix \section{App} \subsection{Sub}
+\end{document}
+trailing

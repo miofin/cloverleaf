@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Galley: LaTeX proof desk</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&family=STIX+Two+Text:ital,wght@0,400;0,600;1,400;1,600&display=swap" rel="stylesheet">
+<style>
+/*CSS*/
+</style>
+<script>
+window.__mj = new Promise(function (res) { window.__mjRes = res; });
+window.MathJax = {
+  tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']], processEscapes: false, processEnvironments: true, tags: 'ams', packages: { '[-]': ['noundefined', 'noerrors'] }, macros: { mathds: ['\\mathbb{#1}', 1], mathbbm: ['\\mathbb{#1}', 1], empty: '', qedhere: '' } },
+  svg: { fontCache: 'local' },
+  options: { enableMenu: false, enableAssistiveMml: false, ignoreHtmlClass: 'no-mj' },
+  startup: { typeset: false, ready: function () { MathJax.startup.defaultReady(); MathJax.startup.promise.then(function () { window.__mjRes(true); }, function () { window.__mjRes(false); }); } }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-svg-full.js" async onerror="window.__mjRes(false)"></script>
+</head>
+<body>
+<header class="bar">
+  <div class="bl">
+    <div class="brand">Galley</div>
+    <button type="button" class="btn" id="bOpen">Open .tex</button>
+    <div class="fname" id="fname" title="The file you are working on">example.tex</div>
+  </div>
+  <div class="panes" role="group" aria-label="Show or hide panes">
+    <button type="button" class="tab t-src" id="tSrc" aria-pressed="true" title="Show or hide the LaTeX source">Source</button>
+    <button type="button" class="tab t-prev" id="tPrev" aria-pressed="true" title="Show or hide the compiled preview">Preview</button>
+    <button type="button" class="tab t-rev" id="tRev" aria-pressed="true" title="Show or hide the edit review">Review<span class="badge" id="tRevN" aria-label="edits to go"></span></button>
+  </div>
+  <div class="br">
+    <button type="button" class="btn" id="bSave" hidden title="This viewer only saves .txt files; rename it to .tex afterwards">Download as .txt</button>
+    <button type="button" class="btn pri" id="bCopy">Copy LaTeX</button>
+  </div>
+  <input type="file" id="fTex" accept=".tex,.ltx,.txt,text/plain" hidden>
+  <input type="file" id="fEdits" accept=".txt,.json,.md,text/plain,application/json" hidden>
+</header>
+
+<main id="main" data-src="1" data-prev="1" data-rev="1" data-tab="rev">
+  <section class="pane" id="pSrc" aria-label="LaTeX source">
+    <div class="phd"><h2>Source</h2></div>
+    <textarea id="ed" class="ed" spellcheck="false" autocomplete="off" autocapitalize="off" aria-label="LaTeX source"></textarea>
+    <details class="log" id="log"><summary>Log <span class="logn" id="logN"></span><span class="dim" id="pos">Line 1, column 1</span></summary><ul id="logL"></ul></details>
+  </section>
+
+  <section class="pane" id="pPrev" aria-label="Compiled preview">
+    <div class="phd"><h2>Preview</h2><span class="cstat" id="cstat" role="status"></span>
+      <label class="chk" title="Recompile a moment after each change to the source"><input type="checkbox" id="auto" checked> Auto</label>
+      <button type="button" class="btn sm" id="bCompile" title="Ctrl or ⌘ + Enter">Compile</button></div>
+    <div id="scroll"><article id="paper" class="paper"></article></div>
+  </section>
+
+  <section class="pane" id="pRev" aria-label="Edit review">
+    <div class="phd"><h2>Review</h2><span class="dim" id="tally"></span><button type="button" class="btn sm sp" id="bLoad">Load edits</button></div>
+    <div class="askbar" id="askBar" hidden><span id="askTxt"></span><button type="button" class="btn sm" id="askStop">Stop</button></div>
+    <div class="revbody">
+      <div class="cardcol">
+        <div class="ribbon" id="ribbon" hidden></div>
+        <div class="card" id="card"></div>
+      </div>
+      <div id="listwrap" hidden>
+        <div class="listhd">
+          <button type="button" class="chip" id="f-all" aria-pressed="true">All</button>
+          <button type="button" class="chip" id="f-typo" aria-pressed="false">Typos</button>
+          <button type="button" class="chip" id="f-sentence" aria-pressed="false">Sentences</button>
+          <button type="button" class="chip" id="f-passage" aria-pressed="false">Passages</button>
+        </div>
+        <ol class="elist" id="elist"></ol>
+        <div class="listft"><label class="chk"><input type="checkbox" id="hideDone"> Hide reviewed</label><button type="button" class="lk" id="bClear">Remove all edits</button></div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<div id="mirror" class="mirror" aria-hidden="true"></div>
+
+<dialog id="dlgLoad" aria-labelledby="dlgT">
+  <h2 id="dlgT">Load edits</h2>
+  <p>Paste the edit list the AI gave you, or choose the file it came in. Nothing changes in your source until you approve an edit.</p>
+  <textarea id="dlgTa" spellcheck="false" aria-label="Edit list" placeholder="=== EDIT typo&#10;REASON: Spelling.&#10;<<<<<<< ORIGINAL&#10;will recieve full credit&#10;=======&#10;will receive full credit&#10;>>>>>>> REVISED"></textarea>
+  <div class="drow"><button type="button" class="btn" id="dlgFile">Choose file</button><span class="msg" id="dlgMsg" role="alert"></span><button type="button" class="btn" id="dlgCancel">Cancel</button><button type="button" class="btn pri" id="dlgAdd">Add edits</button></div>
+  <hr class="dsep">
+  <p>No list yet? Send these instructions to an AI together with your .tex file. Its reply will be in the format this page reads.</p>
+  <textarea id="promptBox" readonly spellcheck="false" aria-label="Instructions for the AI"></textarea>
+  <div class="drow"><button type="button" class="btn" id="dlgCopy">Copy instructions</button><span id="askRow" hidden><button type="button" class="btn" id="dlgAsk">Ask Claude to proofread this file now</button></span></div>
+</dialog>
+
+<dialog id="dlgConfirm">
+  <p id="cfMsg"></p>
+  <div class="drow"><span class="msg"></span><button type="button" class="btn" id="cfNo">Cancel</button><button type="button" class="btn pri" id="cfOk">Continue</button></div>
+</dialog>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>window.__EX_TEX = /*EX_TEX*/; window.__EX_EDITS = /*EX_EDITS*/;</script>
+<script>
+/*CORE*/
+</script>
+<script>
+/*UI*/
+</script>
+</body>
+</html>

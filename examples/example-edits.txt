@@ -1,0 +1,39 @@
+=== EDIT typo
+REASON: Repeated word.
+<<<<<<< ORIGINAL
+The the total
+=======
+The total
+>>>>>>> REVISED
+
+=== EDIT typo
+REASON: Spelling.
+<<<<<<< ORIGINAL
+an invarient of the game
+=======
+an invariant of the game
+>>>>>>> REVISED
+
+=== EDIT sentence
+REASON: The second half is wordy, and “a rule that is simple” reads backwards.
+<<<<<<< ORIGINAL
+We place a number of chips on each vertex, and then we are allowed to move them around according to a rule that is simple.
+=======
+We place some chips on each vertex and then move them around according to one simple rule.
+>>>>>>> REVISED
+
+=== EDIT passage
+REASON: Three stiff sentences; the conventions are easier to scan when stated directly.
+<<<<<<< ORIGINAL
+In this section it is the case that all graphs are assumed to be trees unless it is said otherwise by the problem. You may cite Theorem~\ref{thm:abelian} and Definition~\ref{def:config} without proof. Answers that are not justified will get no credit.
+=======
+Unless a problem says otherwise, every graph in this section is a tree. You may cite Theorem~\ref{thm:abelian} and Definition~\ref{def:config} without proof. Unjustified answers receive no credit.
+>>>>>>> REVISED
+
+=== EDIT typo
+REASON: Spelling.
+<<<<<<< ORIGINAL
+You will recieve full credit
+=======
+You will receive full credit
+>>>>>>> REVISED

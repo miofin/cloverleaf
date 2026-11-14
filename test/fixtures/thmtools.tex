@@ -1,0 +1,35 @@
+\documentclass[11pt]{scrartcl}
+\usepackage[usenames,dvipsnames,svgnames]{xcolor}
+\usepackage[framemethod=TikZ]{mdframed}
+\usepackage{amsmath,amssymb,amsthm,thmtools}
+
+\mdfdefinestyle{bluebox}{roundcorner=10pt, linecolor=blue, backgroundcolor=TealBlue!5}
+\declaretheoremstyle[headfont=\sffamily\bfseries\color{MidnightBlue}, mdframed={style=bluebox}, headpunct={\\[3pt]}]{thmblue}
+\mdfdefinestyle{greenbar}{linecolor=ForestGreen, backgroundcolor=ForestGreen!5, linewidth=2pt, rightline=false, topline=false, bottomline=false}
+\declaretheoremstyle[headfont=\bfseries\sffamily\color{ForestGreen!70!black}, mdframed={style=greenbar}, headpunct={ --- }]{thmgreen}
+\declaretheorem[style=thmblue,name=Theorem,numberwithin=subsection]{theorem}
+\declaretheorem[style=thmblue,name=Lemma,sibling=theorem]{lemma}
+\declaretheorem[style=thmblue,name=Theorem,numbered=no]{theorem*}
+\declaretheorem[style=thmgreen,name=Definition,sibling=theorem]{definition}
+\declaretheorem[style=thmblue,name=Problem,numberwithin=subsection]{problem}
+
+\begin{document}
+\section{Sets}
+\subsection{Basics}
+\begin{definition}\label{def:set}
+A \emph{set} is a collection of objects.
+\end{definition}
+\begin{theorem}[Cantor]\label{thm:cantor}
+No set surjects onto its power set.
+\end{theorem}
+\begin{lemma} A helper. \end{lemma}
+\begin{theorem*} An unnumbered statement. \end{theorem*}
+\begin{problem}[5 points]\label{prob:one}
+Use Theorem~\ref{thm:cantor} and Definition~\ref{def:set}.
+\end{problem}
+\iffalse
+\begin{theorem} Hidden. \end{theorem}
+\fi
+\subsection{More}
+\begin{problem} Second subsection. \end{problem}
+\end{document}

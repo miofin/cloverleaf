@@ -1,0 +1,64 @@
+\documentclass[11pt]{article}
+\usepackage{amsmath,amssymb,amsthm}
+\usepackage[shortlabels]{enumitem}
+
+\newtheorem{theorem}{Theorem}[section]
+\newtheorem{lemma}[theorem]{Lemma}
+\theoremstyle{definition}
+\newtheorem{definition}[theorem]{Definition}
+\newtheorem{problem}{Problem}[section]
+
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\pts}[1]{\textbf{[#1 points]}}
+\DeclareMathOperator{\chips}{chips}
+
+\title{Chip-Firing on Graphs}
+\author{A sample power round}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Rules of the game}
+
+Throughout this round, a \emph{graph} $G = (V, E)$ is finite, connected, and has no loops. We place a number of chips on each vertex, and then we are allowed to move them around according to a rule that is simple.
+
+\begin{definition}\label{def:config}
+A \emph{configuration} on $G$ is a function $c \colon V \to \Z$. We call $c(v)$ the number of chips on $v$, and we say that $c$ is \emph{effective} if $c(v) \ge 0$ for every $v \in V$.
+\end{definition}
+
+\begin{definition}
+To \emph{fire} a vertex $v$ is to send one chip from $v$ along each edge incident to $v$. If $v$ has degree $d(v)$, firing $v$ turns $c$ into the configuration $c'$ with
+\begin{align}
+  c'(v) &= c(v) - d(v), \label{eq:fire} \\
+  c'(w) &= c(w) + e(v, w) \quad \text{for } w \neq v, \notag
+\end{align}
+where $e(v, w)$ is the number of edges between $v$ and $w$.
+\end{definition}
+
+Firing never changes the total number of chips. The the total $\chips(c) = \sum_{v \in V} c(v)$ is called the \emph{degree} of $c$, and by \eqref{eq:fire} it is an invarient of the game.
+
+\begin{theorem}[Order does not matter]\label{thm:abelian}
+If $c'$ is obtained from $c$ by firing the vertices $v_1, \dots, v_k$ in some order, then firing the same vertices in any other order also produces $c'$.
+\end{theorem}
+
+\section{Problems}
+
+In this section it is the case that all graphs are assumed to be trees unless it is said otherwise by the problem. You may cite Theorem~\ref{thm:abelian} and Definition~\ref{def:config} without proof. Answers that are not justified will get no credit.
+
+\begin{problem} \pts{5}
+Let $G$ be the path with vertices $a$, $b$, $c$ in that order, and start with $3$ chips on $b$ and none elsewhere.
+\begin{enumerate}[(a)]
+  \item List every configuration you can reach by firing vertices. You will recieve full credit only if your list is complete.
+  \item Show that no sequence of firings puts all $3$ chips on $a$.
+\end{enumerate}
+\end{problem}
+
+\begin{problem} \pts{12}
+Let $T$ be a tree with $n$ vertices. Prove that an effective configuration $c$ on $T$ can be fired forever if and only if
+\[
+  \chips(c) \ge n - 1.
+\]
+\end{problem}
+
+\end{document}
